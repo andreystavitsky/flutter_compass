@@ -141,8 +141,7 @@ class _MyAppState extends State<MyApp> {
           RaisedButton(
             child: Text('Request Permissions'),
             onPressed: () {
-              PermissionHandler().requestPermissions(
-                  [PermissionGroup.locationWhenInUse]).then((ignored) {
+              Permission.locationWhenInUse.request().then((ignored) {
                 _fetchPermissionStatus();
               });
             },
@@ -151,7 +150,7 @@ class _MyAppState extends State<MyApp> {
           RaisedButton(
             child: Text('Open App Settings'),
             onPressed: () {
-              PermissionHandler().openAppSettings().then((opened) {
+              openAppSettings().then((opened) {
                 //
               });
             },
@@ -162,9 +161,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _fetchPermissionStatus() {
-    PermissionHandler()
-        .checkPermissionStatus(PermissionGroup.locationWhenInUse)
-        .then((status) {
+    Permission.locationWhenInUse.status.then((status) {
       if (mounted) {
         setState(() => _hasPermissions = status == PermissionStatus.granted);
       }
